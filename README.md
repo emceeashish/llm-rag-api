@@ -120,6 +120,7 @@ curl -X POST "http://localhost:8000/execute" \
 
 ```json
 {
+  "prompt": "Check RAM usage",
   "matched_function": "check_ram_usage",
   "execution_result": "RAM usage: 45%",
   "generated_code_snippet": "from function_registry import check_ram_usage\ncheck_ram_usage()"
@@ -140,22 +141,27 @@ curl -X POST "http://localhost:8000/execute" \
 
 ```json
 {
+  "prompt": "Open calculator",
   "matched_function": "open_calculator",
   "execution_result": "Function executed successfully",
   "generated_code_snippet": "from function_registry import open_calculator\nopen_calculator()"
 }
 ```
 
+When you submit the prompt `"Open calculator"`, the API recognizes and executes the corresponding function on your local system, which launches the default Calculator app.
+
 ---
 
 ## 🖼️ Screenshots
 
-| Step                 | Screenshot                                      |
-|----------------------|-------------------------------------------------|
-| **Prompt Sent**      | ![](screenshot/1.png)                 |
-| **Function Matched** | ![](screenshot/2.png)                 |
-| **Code Executed**    | ![](screenshot/3.png)                 |
-| **Calculator Opened**| ![](screenshot/4.png)                 |
+Below are four screenshots demonstrating how this API works when sending a prompt to open the calculator:
+
+| Step                 | Screenshot                       | Description                                                                     |
+|----------------------|----------------------------------|---------------------------------------------------------------------------------|
+| **1**               | ![](screenshot/1.png)            | FastAPI docs UI showing the `/execute` endpoint.                               |
+| **2**               | ![](screenshot/2.png)            | Submitting the JSON request body with `"prompt": "Open calculator"`.           |
+| **3**               | ![](screenshot/3.png)            | The running Windows Calculator after the function was executed successfully.    |
+| **4**               | ![](screenshot/4.png)            | Response body in the docs, showing the matched function and success message.    |
 
 ---
 
