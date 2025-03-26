@@ -1,0 +1,7 @@
+requests
+python-dotenv
+sentence-transformers
+faiss-cpu
+fastapi
+uvicorn
+psutil
