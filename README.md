@@ -57,7 +57,7 @@ llm-rag-api/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/llm-rag-api.git
+git clone https://github.com/emceeashish/llm-rag-api.git
 cd llm-rag-api
 ```
 
