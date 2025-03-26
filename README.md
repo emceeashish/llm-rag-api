@@ -9,7 +9,7 @@ This project combines **Large Language Models (LLMs)** with **Retrieval-Augmente
 
 ```text
 llm-rag-api/
-├── .env                  # Stores Together.ai API key (not committed)
+├── .env                  # Stores Together.ai API key
 ├── main.py               # FastAPI server and endpoint logic
 ├── function_registry.py  # Automation functions + metadata
 ├── embeddings.py         # Sentence-transformers embeddings
