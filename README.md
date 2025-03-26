@@ -17,7 +17,7 @@ llm-rag-api/
 ├── code_generator.py     # Together.ai (Mistral) code generation
 ├── requirements.txt      # Dependency list
 ├── logs/                 # Execution logs
-└── screenshot/           # Calculator screenshots
+└── screenshots/          # Calculator screenshots
 ```
 
 ---
@@ -156,12 +156,12 @@ When you submit the prompt `"Open calculator"`, the API recognizes and executes 
 
 Below are four screenshots demonstrating how this API works when sending a prompt to open the calculator:
 
-| Step                 | Screenshot                       | Description                                                                     |
-|----------------------|----------------------------------|---------------------------------------------------------------------------------|
-| **1**               | ![](screenshot/1.png)            | FastAPI docs UI showing the `/execute` endpoint.                               |
-| **2**               | ![](screenshot/2.png)            | Submitting the JSON request body with `"prompt": "Open calculator"`.           |
-| **3**               | ![](screenshot/3.png)            | The running Windows Calculator after the function was executed successfully.    |
-| **4**               | ![](screenshot/4.png)            | Response body in the docs, showing the matched function and success message.    |
+| Step                 | Screenshot                          | Description                                                                     |
+|----------------------|-------------------------------------|---------------------------------------------------------------------------------|
+| **1**               | ![](screenshots/1.png)              | FastAPI docs UI showing the `/execute` endpoint.                               |
+| **2**               | ![](screenshots/2.png)              | Submitting the JSON request body with `"prompt": "Open calculator"`.           |
+| **3**               | ![](screenshots/3.png)              | The running Windows Calculator after the function was executed successfully.    |
+| **4**               | ![](screenshots/4.png)              | Response body in the docs, showing the matched function and success message.    |
 
 ---
 
