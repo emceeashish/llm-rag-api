@@ -1,23 +1,13 @@
-```markdown
 # LLM + RAG Function Execution API
 
-## Overview  
-This API combines **Large Language Models (LLMs)** with **Retrieval-Augmented Generation (RAG)** to map natural language prompts (e.g., "Open calculator") to automation functions. It dynamically generates Python code, logs executions, and exposes endpoints via FastAPI.
+## 📖 Overview  
+This project combines **Large Language Models (LLMs)** with **Retrieval-Augmented Generation (RAG)** to understand natural language commands (e.g., "Open calculator") and execute predefined Python automation functions. It dynamically generates executable code, matches functions using vector similarity, logs the execution, and exposes everything through a FastAPI server.
 
 ---
 
-## Table of Contents  
-1. [Project Structure](#project-structure)  
-2. [Key Components](#key-components)  
-3. [Setup](#setup)  
-4. [Usage](#usage)  
-5. [Example Input/Output](#example-inputoutput)  
-6. [Future Enhancements](#future-enhancements)
+## 📂 Project Structure  
 
----
-
-## Project Structure  
-```
+```text
 llm-rag-api/
 ├── .env                  # Stores Together.ai API key (not committed)
 ├── main.py               # FastAPI server and endpoint logic
@@ -26,111 +16,128 @@ llm-rag-api/
 ├── vector_store.py       # FAISS vector database
 ├── code_generator.py     # Together.ai (Mistral) code generation
 ├── requirements.txt      # Dependency list
-└── logs/                 # Execution logs
+├── logs/                 # Execution logs
+└── screenshot/           # Calculator screenshots
 ```
 
 ---
 
-## Key Components  
+## 🧩 Key Components  
 
-### 1. Function Registry  
-- **File:** `function_registry.py`  
-- **Functions:** `open_calculator()`, `open_chrome()`, `check_ram_usage()`, `run_shell_command()`  
-- **Metadata:** Stored in `FUNCTIONS_METADATA` for RAG retrieval.  
+### 1. **Function Registry**
+- **File:** `function_registry.py`
+- **Functions Included:**
+  - `open_calculator()`
+  - `open_chrome()`
+  - `check_ram_usage()`
+  - `run_shell_command()`
+- **Metadata:** Stored in `FUNCTIONS_METADATA` for RAG retrieval.
 
-### 2. Embeddings & Vector Store  
-- **Embeddings Model:** `all-MiniLM-L6-v2` (sentence-transformers)  
-- **Vector Store:** FAISS for fast similarity search.  
+### 2. **Embeddings & Vector Store**
+- **Model Used:** `all-MiniLM-L6-v2` from `sentence-transformers`
+- **Vector Store:** FAISS for fast similarity search
 
-### 3. Dynamic Code Generation  
-- **API:** Together.ai's Mistral model  
-- **Output Example:**  
+### 3. **Dynamic Code Generation**
+- **Model:** Mistral (via Together.ai)
+- **Generated Output Example:**
   ```python
   from function_registry import open_calculator
   open_calculator()
   ```
 
-### 4. API Service  
+### 4. **API Service**
 - **Framework:** FastAPI  
 - **Endpoint:** `/execute` (POST)  
-- **Logging:** Saved to `logs/app.log`  
+- **Logging:** Logs stored in `logs/app.log`
 
 ---
 
-## Setup  
+## ⚙️ Setup  
 
-1. **Clone Repository**  
-   ```bash
-   git clone https://github.com/yourusername/llm-rag-api.git
-   cd llm-rag-api
-   ```
+### 1. Clone the Repository
 
-2. **Create Environment**  
-   *Conda:*  
-   ```bash
-   conda create -n llm-rag python=3.10
-   conda activate llm-rag
-   ```  
-   *Virtualenv:*  
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   .\venv\Scripts\activate  # Windows
-   ```
+```bash
+git clone https://github.com/yourusername/llm-rag-api.git
+cd llm-rag-api
+```
 
-3. **Install Dependencies**  
-   ```bash
-   pip install -r requirements.txt
-   # Conda alternative:
-   conda install -c conda-forge requests python-dotenv sentence-transformers faiss-cpu fastapi uvicorn psutil
-   ```
+### 2. Create Virtual Environment
 
-4. **Configure API Key**  
-   Create `.env` file:  
-   ```ini
-   TOGETHER_API_KEY=your_api_key_here
-   ```
+**Conda:**
+```bash
+conda create -n llm-rag python=3.10
+conda activate llm-rag
+```
 
-5. **Start Server**  
-   ```bash
-   uvicorn main:app --reload
-   ```  
-   Access docs: http://localhost:8000/docs  
+**Virtualenv:**
+```bash
+python -m venv venv
+venv\Scripts\activate  # Windows
+# or
+source venv/bin/activate  # Mac/Linux
+```
 
----
+### 3. Install Dependencies
 
-## Usage  
+```bash
+pip install -r requirements.txt
+```
 
-1. **Send Request**  
-   ```bash
-   curl -X POST "http://localhost:8000/execute" \
-     -H "Content-Type: application/json" \
-     -d '{"prompt": "Check RAM usage"}'
-   ```
+**Or with conda:**
+```bash
+conda install -c conda-forge requests python-dotenv sentence-transformers faiss-cpu fastapi uvicorn psutil
+```
 
-2. **Response Format**  
-   ```json
-   {
-     "matched_function": "check_ram_usage",
-     "execution_result": "RAM usage: 45%",
-     "generated_code_snippet": "from function_registry import check_ram_usage\ncheck_ram_usage()"
-   }
-   ```
+### 4. Add Your API Key
 
-3. **Verification**  
-   - Physical results (e.g., calculator opens).  
-   - Check logs: `tail -f logs/app.log`.  
+Create a `.env` file:
+
+```ini
+TOGETHER_API_KEY=your_api_key_here
+```
+
+### 5. Run the Server
+
+```bash
+uvicorn main:app --reload
+```
+
+Visit the interactive docs at: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
-## Example Input/Output  
+## 🚀 Usage
 
-**Input:**  
+### Send a Request
+
+```bash
+curl -X POST "http://localhost:8000/execute" \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "Check RAM usage"}'
+```
+
+### Example Response
+
+```json
+{
+  "matched_function": "check_ram_usage",
+  "execution_result": "RAM usage: 45%",
+  "generated_code_snippet": "from function_registry import check_ram_usage\ncheck_ram_usage()"
+}
+```
+
+---
+
+## 💡 Example Input/Output
+
+**Input:**
+
 ```json
 { "prompt": "Open calculator" }
 ```
 
-**Output:**  
+**Output:**
+
 ```json
 {
   "matched_function": "open_calculator",
@@ -139,13 +146,21 @@ llm-rag-api/
 }
 ```
 
-**System Result:** Calculator app launches on Windows.  
+---
+
+## 🖼️ Screenshots
+
+| Step                 | Screenshot                                      |
+|----------------------|-------------------------------------------------|
+| **Prompt Sent**      | ![](screenshot/1.png)                 |
+| **Function Matched** | ![](screenshot/2.png)                 |
+| **Code Executed**    | ![](screenshot/3.png)                 |
+| **Calculator Opened**| ![](screenshot/4.png)                 |
 
 ---
 
-## Future Enhancements  
-- **Extended Functions:** Add file operations, email automation.  
-- **Multi-OS Support:** Improve compatibility for Mac/Linux.  
-- **Security:** Add JWT/OAuth for API endpoints.  
-- **UI Dashboard:** Web interface for log monitoring.  
-```
+## 🔮 Future Enhancements  
+- Add more functions: file operations, email automation, browser actions  
+- Add multi-OS support (Linux, MacOS)  
+- Add authentication (JWT/OAuth)  
+- Create a web dashboard to monitor logs and executions
